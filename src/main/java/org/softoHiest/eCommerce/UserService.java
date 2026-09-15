@@ -44,4 +44,14 @@ public class UserService {
                     return true;
                 }).orElse(false);
     }
+
+    public boolean deleteUser(Long id) {
+        return userList.stream()
+                .filter(user -> user.getId().equals(id))
+                .findFirst()
+                .map(user -> {
+                    userList.remove(user);
+                    return true;
+                }).orElse(false);
+    }
 }
