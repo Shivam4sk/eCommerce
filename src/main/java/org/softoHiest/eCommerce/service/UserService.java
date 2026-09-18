@@ -90,7 +90,7 @@ public class UserService {
         userResponseDto.setEmail(user.getEmail());
         userResponseDto.setPhone(user.getPhone());
         userResponseDto.setRole(user.getRole());
-
+        userResponseDto.setCreatedAt(user.getCreatedAt());
         if(user.getAddress() != null){
             AddressRequestDto  addressRequestDto = new AddressRequestDto();
             addressRequestDto.setStreet(user.getAddress().getStreet());

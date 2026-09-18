@@ -22,4 +22,5 @@ public class UserResponseDto {
     private UserRole role = UserRole.CUSTOMER;
     private AddressRequestDto address;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
