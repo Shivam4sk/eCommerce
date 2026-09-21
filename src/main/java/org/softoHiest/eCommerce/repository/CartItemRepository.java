@@ -1,0 +1,15 @@
+package org.softoHiest.eCommerce.repository;
+
+import org.softoHiest.eCommerce.model.CartItem;
+import org.softoHiest.eCommerce.model.Product;
+import org.softoHiest.eCommerce.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
+
+
+    CartItem findByUserAndProduct(User user, Product product);
+}
