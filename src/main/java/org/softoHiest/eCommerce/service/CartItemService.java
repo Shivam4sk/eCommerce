@@ -1,5 +1,6 @@
 package org.softoHiest.eCommerce.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.softoHiest.eCommerce.dto.requestDto.CartItemRequest;
 import org.softoHiest.eCommerce.model.CartItem;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CartItemService {
 
     private final CartItemRepository cartItemRepository;
@@ -54,5 +56,27 @@ public class CartItemService {
             cartItemRepository.save(cartItem);
         }
         return true;
+    }
+
+    public Boolean deleteItemFromCart(String userId, Long productId) {
+
+        Optional<Product> productOpt = productRepository.findById(productId);
+        if(productOpt.isEmpty())
+            return false;
+
+
+        Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
+        if(userOpt.isEmpty())
+            return false;
+
+        userOpt.flatMap(user ->
+                productOpt.map(product -> {
+                    cartItemRepository.deleteByUserAndProduct(user,product);
+                    return false;
+                })
+        );
+
+        return false;
+
     }
 }
