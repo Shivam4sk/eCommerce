@@ -1,7 +1,6 @@
 package org.softoHiest.eCommerce.service;
 
 import org.softoHiest.eCommerce.dto.requestDto.AddressRequestDto;
-import org.softoHiest.eCommerce.dto.requestDto.UpdateUserReqDto;
 import org.softoHiest.eCommerce.dto.requestDto.UserRequestDto;
 import org.softoHiest.eCommerce.dto.responseDto.UserResponseDto;
 import org.softoHiest.eCommerce.model.Address;
@@ -91,6 +90,7 @@ public class UserService {
         userResponseDto.setPhone(user.getPhone());
         userResponseDto.setRole(user.getRole());
         userResponseDto.setCreatedAt(user.getCreatedAt());
+        userResponseDto.setUpdatedAt(user.getUpdatedAt());
         if(user.getAddress() != null){
             AddressRequestDto  addressRequestDto = new AddressRequestDto();
             addressRequestDto.setStreet(user.getAddress().getStreet());
@@ -100,7 +100,6 @@ public class UserService {
             addressRequestDto.setZipcode(user.getAddress().getZipcode());
             userResponseDto.setAddress(addressRequestDto);
         }
-
         return userResponseDto;
     }
 }

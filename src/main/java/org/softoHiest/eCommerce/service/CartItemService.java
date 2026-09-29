@@ -12,6 +12,7 @@ import org.softoHiest.eCommerce.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,22 +62,18 @@ public class CartItemService {
     public Boolean deleteItemFromCart(String userId, Long productId) {
 
         Optional<Product> productOpt = productRepository.findById(productId);
-        if(productOpt.isEmpty())
-            return false;
-
-
         Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
-        if(userOpt.isEmpty())
-            return false;
 
-        userOpt.flatMap(user ->
-                productOpt.map(product -> {
-                    cartItemRepository.deleteByUserAndProduct(user,product);
-                    return false;
-                })
-        );
-
+        if(productOpt.isPresent() && userOpt.isPresent()){
+            cartItemRepository.deleteByUserAndProduct(userOpt.get(), productOpt.get());
+            return true;
+        }
         return false;
+    }
 
+    public List<CartItem> getCart(String userId) {
+       return userRepository.findById(Long.valueOf(userId))
+               .map(cartItemRepository::findByUser)
+               .orElseGet(List::of);
     }
 }
