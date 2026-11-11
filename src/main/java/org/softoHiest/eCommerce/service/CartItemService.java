@@ -24,6 +24,11 @@ public class CartItemService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
+    public  void clearCart(String userId) {
+        userRepository.findById(Long.valueOf(userId)).ifPresent(cartItemRepository::deleteByUser
+        );
+    }
+
     public boolean addToCart(String userId, CartItemRequest cartItemRequest) {
         // find product
         Optional<Product> productOpt = productRepository.findById(cartItemRequest.getProductId());
