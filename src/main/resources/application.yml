@@ -5,6 +5,7 @@
 #    username: sa
 #    password:
 
+#management.endpoint.web.exposure.include=*
 
 #MySQL Connection
 spring:
@@ -27,6 +28,23 @@ spring:
       hibernate:
         format_sql: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enable: true
 
+
+info:
+  app:
+    name: ecomApp
+    description: App is to manage product and users, order etc.
+    version: 1.0v
 #server:
 #  port: 8081
